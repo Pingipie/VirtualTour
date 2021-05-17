@@ -3,20 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RaycastController : MonoBehaviour
+public class PointerLeft : MonoBehaviour
 {
     RaycastHit hit;
     LineRenderer line;
 
     public bool isHitting;
 
-    public void Start()
+    LeftHand leftHand;
+
+    protected virtual void Start()
     {
         line = this.GetComponent<LineRenderer>();
+
+        leftHand = GameObject.FindObjectOfType<LeftHand>();
+        this.transform.parent = leftHand.transform;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         line.SetPosition(0, this.transform.position);
 

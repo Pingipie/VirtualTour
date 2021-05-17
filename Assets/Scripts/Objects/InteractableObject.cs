@@ -13,15 +13,19 @@ public class InteractableObject : MonoBehaviour
 
     private Vector3 initialPosition;
 
-    private RaycastController[] rayCastControllers;
+    private PointerRight pointerRight;
+    private PointerLeft pointerLeft;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
         zooming = false;
         
-        if(GameObject.FindObjectOfType<RaycastController>())
-            rayCastControllers = GameObject.FindObjectsOfType<RaycastController>();
+        if(GameObject.FindObjectOfType<PointerRight>())
+            pointerRight = GameObject.FindObjectOfType<PointerRight>();
+
+        if (GameObject.FindObjectOfType<PointerLeft>())
+            pointerLeft = GameObject.FindObjectOfType<PointerLeft>();
 
         distance = Vector3.Distance(this.transform.position, Vector3.zero);
 
@@ -49,9 +53,11 @@ public class InteractableObject : MonoBehaviour
             this.transform.position = Vector3.Lerp(this.transform.position, initialPosition, .03f);
         }
 
-        if(rayCastControllers != null)
-            if (!rayCastControllers[0].isHitting && !rayCastControllers[1].isHitting)
+        if (pointerRight != null && pointerLeft != null)
+        {
+            if (!pointerRight.isHitting && !pointerLeft.isHitting)
                 zooming = false;
+        }
     }
 
     public virtual void Zoom()
@@ -59,7 +65,8 @@ public class InteractableObject : MonoBehaviour
         zooming = true;
     }
 
-    /*private void OnMouseOver()
+    /*
+    private void OnMouseOver()
     {
         zooming = true;
     }
