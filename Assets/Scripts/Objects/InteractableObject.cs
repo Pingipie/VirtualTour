@@ -59,7 +59,7 @@ public class InteractableObject : MonoBehaviour
         zooming = true;
     }
 
-    private void OnMouseOver()
+    /*private void OnMouseOver()
     {
         zooming = true;
     }
@@ -68,4 +68,5 @@ public class InteractableObject : MonoBehaviour
     {
         zooming = false;
     }
+    */
 }

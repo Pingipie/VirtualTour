@@ -20,16 +20,21 @@ public class RaycastController : MonoBehaviour
     {
         line.SetPosition(0, this.transform.position);
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1.0f))
         {
+            //Debug.Log("Hitting: " + hit);
+            Debug.DrawRay(transform.position, transform.forward);
             if (hit.collider.GetComponent<InteractableObject>())
             {
+                Debug.Log("I'm hitting");
                 isHitting = true;
-                hit.collider.GetComponent<InteractableObject>();               
+                hit.collider.GetComponent<InteractableObject>().Zoom();
+                line.SetPosition(1, hit.transform.position);
             }
             else
             {
                 isHitting = false;
+                line.SetPosition(1, transform.position + (transform.forward * 1.0f));
             }
         }
     }
