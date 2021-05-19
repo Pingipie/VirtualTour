@@ -6,6 +6,7 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     private bool zooming;
+    private bool isZoom;
 
     private float weight = 0f;
     private float weightVel = .01f;
@@ -20,6 +21,7 @@ public class InteractableObject : MonoBehaviour
     protected virtual void Start()
     {
         zooming = false;
+        isZoom = false;
         
         if(GameObject.FindObjectOfType<PointerRight>())
             pointerRight = GameObject.FindObjectOfType<PointerRight>();
@@ -41,11 +43,17 @@ public class InteractableObject : MonoBehaviour
     // Update is called once per frame
     protected virtual void FixedUpdate()
     {
-        if (zooming)
+        if (zooming || isZoom)
         {
+            isZoom = true;
             if (Vector3.Distance(this.transform.position, Vector3.zero) >= distance)
             {
                 this.transform.position = Vector3.Lerp(this.transform.position, Vector3.zero, 0.001f);
+            }
+            else
+            {
+                isZoom = false;
+                zooming = false;
             }
         }
         else

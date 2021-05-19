@@ -17,15 +17,18 @@ public class PointerLeft : MonoBehaviour
         line = this.GetComponent<LineRenderer>();
 
         leftHand = GameObject.FindObjectOfType<LeftHand>();
-        this.transform.parent = leftHand.transform;
     }
 
     // Update is called once per frame
     protected virtual void FixedUpdate()
     {
         line.SetPosition(0, this.transform.position);
+        line.SetPosition(1, transform.position + (transform.forward * 1.0f));
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1.0f))
+        this.transform.position = new Vector3(leftHand.transform.position.x, leftHand.transform.position.y, leftHand.transform.position.z + .1f);
+        this.transform.rotation = leftHand.transform.rotation;
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 3.0f))
         {
             //Debug.Log("Hitting: " + hit);
             Debug.DrawRay(transform.position, transform.forward);
@@ -34,12 +37,11 @@ public class PointerLeft : MonoBehaviour
                 Debug.Log("I'm hitting");
                 isHitting = true;
                 hit.collider.GetComponent<InteractableObject>().Zoom();
-                line.SetPosition(1, hit.transform.position);
+                //line.SetPosition(1, hit.transform.position);
             }
             else
             {
                 isHitting = false;
-                line.SetPosition(1, transform.position + (transform.forward * 1.0f));
             }
         }
     }
