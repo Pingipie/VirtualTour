@@ -7,6 +7,7 @@ public class PointerRight : MonoBehaviour
 {
     RaycastHit hit;
     LineRenderer line;
+    Gradient initialGradient;
 
     public bool isHitting;
 
@@ -15,6 +16,8 @@ public class PointerRight : MonoBehaviour
     protected virtual void Start()
     {
         line = this.GetComponent<LineRenderer>();
+        initialGradient = SetInitialGradient();
+        line.colorGradient = initialGradient;
 
         rightHand = GameObject.FindObjectOfType<RightHand>();
         //this.transform.parent = rightHand.transform;
@@ -35,15 +38,53 @@ public class PointerRight : MonoBehaviour
             Debug.DrawRay(transform.position, transform.forward);
             if (hit.collider.GetComponent<InteractableObject>())
             {
-                Debug.Log("I'm hitting");
                 isHitting = true;
                 hit.collider.GetComponent<InteractableObject>().Zoom();
+                
+                Gradient temporalGradient = new Gradient();
+                GradientColorKey[] colorKey = new GradientColorKey[2];
+                GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
+
+                colorKey[0].color = Color.white;
+                colorKey[0].time = 0.0f;
+                colorKey[1].color = Color.white;
+                colorKey[1].time = 1.0f;
+
+                alphaKey[0].alpha = .8f;
+                alphaKey[0].time = 0.0f;
+                alphaKey[1].alpha = 0.5f;
+                alphaKey[1].time = 1.0f;
+
+                temporalGradient.SetKeys(colorKey, alphaKey);
+                line.colorGradient = temporalGradient;
                 //line.SetPosition(1, hit.transform.position);
             }
-            else
-            {
-                isHitting = false;
-            }
         }
+        else
+        {
+            line.colorGradient = initialGradient;
+            isHitting = false;
+        }
+    }
+
+    private Gradient SetInitialGradient()
+    {
+        Gradient temporalGradient = new Gradient();
+        GradientColorKey[] colorKey = new GradientColorKey[2];
+        GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
+
+        colorKey[0].color = Color.white;
+        colorKey[0].time = 0.0f;
+        colorKey[1].color = Color.white;
+        colorKey[1].time = 1.0f;
+
+        alphaKey[0].alpha = .5f;
+        alphaKey[0].time = 0.0f;
+        alphaKey[1].alpha = 0.0f;
+        alphaKey[1].time = 1.0f;
+
+        temporalGradient.SetKeys(colorKey, alphaKey);
+
+        return temporalGradient;
     }
 }
