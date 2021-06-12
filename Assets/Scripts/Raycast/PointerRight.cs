@@ -36,7 +36,7 @@ public class PointerRight : MonoBehaviour
         {
             //Debug.Log("Hitting: " + hit);
             Debug.DrawRay(transform.position, transform.forward);
-            if (hit.collider.CompareTag("IntectableObj"))
+            if (hit.collider.CompareTag("InteractableObj"))
             {
                 isHitting = true;
                 hit.collider.GetComponentInParent<InteractableObject>().Zoom();

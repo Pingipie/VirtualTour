@@ -6,12 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Scene.unity
+    path: Assets/Scenes/ScenaBase.unity
     guid: cce1e97f4c9a6494f9e76047993083b1
+  - enabled: 1
+    path: "Assets/Scenes/ScenaCitt\xE0.unity"
+    guid: bab64d48d9ac38f4d8662b2b6c2a7d54
+  - enabled: 1
+    path: Assets/Scenes/ScenaStanza.unity
+    guid: d0470b178d69af7498f9c5ad90fc26e5
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 822f3ed9da1a5c645a356e36b2436003,
       type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 85c0133d7a52ff040b2e86b72bdb76aa,
+      type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 258e656adaf46984ca42f8130037a462,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6b70ee243a42e3d43bb4a55bab5346ed,
       type: 2}
