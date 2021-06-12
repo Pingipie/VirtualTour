@@ -36,10 +36,10 @@ public class PointerRight : MonoBehaviour
         {
             //Debug.Log("Hitting: " + hit);
             Debug.DrawRay(transform.position, transform.forward);
-            if (hit.collider.GetComponent<InteractableObject>())
+            if (hit.collider.CompareTag("IntectableObj"))
             {
                 isHitting = true;
-                hit.collider.GetComponent<InteractableObject>().Zoom();
+                hit.collider.GetComponentInParent<InteractableObject>().Zoom();
                 
                 Gradient temporalGradient = new Gradient();
                 GradientColorKey[] colorKey = new GradientColorKey[2];

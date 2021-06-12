@@ -43,4 +43,25 @@ public class RaycastController : MonoBehaviour
             }
         }
     }
+
+    private Gradient SetInitialGradient()
+    {
+        Gradient temporalGradient = new Gradient();
+        GradientColorKey[] colorKey = new GradientColorKey[2];
+        GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
+
+        colorKey[0].color = Color.white;
+        colorKey[0].time = 0.0f;
+        colorKey[1].color = Color.white;
+        colorKey[1].time = 1.0f;
+
+        alphaKey[0].alpha = .5f;
+        alphaKey[0].time = 0.0f;
+        alphaKey[1].alpha = 0.0f;
+        alphaKey[1].time = 1.0f;
+
+        temporalGradient.SetKeys(colorKey, alphaKey);
+
+        return temporalGradient;
+    }
 }
