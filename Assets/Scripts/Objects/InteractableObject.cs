@@ -61,16 +61,18 @@ public class InteractableObject : MonoBehaviour
             this.transform.position = Vector3.Lerp(this.transform.position, initialPosition, .03f);
         }
 
+        /*
         if (pointerRight != null && pointerLeft != null)
         {
             if (!pointerRight.isHitting && !pointerLeft.isHitting)
                 zooming = false;
         }
+        */
     }
 
-    public virtual void Zoom()
+    public virtual void Zoom(bool value)
     {
-        zooming = true;
+        zooming = value;
     }
 
     /*

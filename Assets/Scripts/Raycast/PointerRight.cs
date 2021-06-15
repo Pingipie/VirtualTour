@@ -9,6 +9,9 @@ public class PointerRight : MonoBehaviour
     LineRenderer line;
     Gradient initialGradient;
 
+    EnableRenderer[] renderers;
+    InteractableObject obj;
+
     public bool isHitting;
 
     RightHand rightHand;
@@ -21,6 +24,9 @@ public class PointerRight : MonoBehaviour
 
         rightHand = GameObject.FindObjectOfType<RightHand>();
         //this.transform.parent = rightHand.transform;
+
+        renderers = GameObject.FindObjectsOfType<EnableRenderer>();
+        obj = GameObject.FindObjectOfType<InteractableObject>();
     }
 
     // Update is called once per frame
@@ -39,8 +45,13 @@ public class PointerRight : MonoBehaviour
             if (hit.collider.CompareTag("InteractableObj"))
             {
                 isHitting = true;
-                hit.collider.GetComponentInParent<InteractableObject>().Zoom();
-                
+                if (hit.collider.name == "CartelloneInterno")
+                    hit.collider.GetComponentInParent<InteractableObject>().Zoom(true);
+                else if (hit.collider.name == "ElicotteroMesh")
+                    hit.collider.GetComponentInParent<EnableRenderer>().AbleRenderer(true);
+                else if (hit.collider.name == "CosoGiallo")
+                    hit.collider.GetComponentInParent<EnableRenderer>().AbleRenderer(true);
+
                 Gradient temporalGradient = new Gradient();
                 GradientColorKey[] colorKey = new GradientColorKey[2];
                 GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
@@ -62,6 +73,10 @@ public class PointerRight : MonoBehaviour
         }
         else
         {
+            foreach (EnableRenderer renderer in renderers)
+                renderer.AbleRenderer(false);
+
+            obj.Zoom(false);
             line.colorGradient = initialGradient;
             isHitting = false;
         }

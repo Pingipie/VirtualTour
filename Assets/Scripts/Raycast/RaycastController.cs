@@ -33,7 +33,7 @@ public class RaycastController : MonoBehaviour
             {
                 Debug.Log("I'm hitting");
                 isHitting = true;
-                hit.collider.GetComponent<InteractableObject>().Zoom();
+                hit.collider.GetComponent<InteractableObject>().Zoom(true);
                 //line.SetPosition(1, hit.transform.position);
             }
             else

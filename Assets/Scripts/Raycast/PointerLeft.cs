@@ -9,6 +9,10 @@ public class PointerLeft : MonoBehaviour
     LineRenderer line;
     Gradient initialGradient;
 
+    EnableRenderer[] renderers;
+    InteractableObject obj;
+
+
     public bool isHitting;
 
     LeftHand leftHand;
@@ -20,6 +24,9 @@ public class PointerLeft : MonoBehaviour
         line.colorGradient = initialGradient;
 
         leftHand = GameObject.FindObjectOfType<LeftHand>();
+
+        renderers = GameObject.FindObjectsOfType<EnableRenderer>();
+        obj = GameObject.FindObjectOfType<InteractableObject>();
     }
 
     // Update is called once per frame
@@ -39,7 +46,13 @@ public class PointerLeft : MonoBehaviour
             {
                 Debug.Log("is hitting");
                 isHitting = true;
-                hit.collider.GetComponentInParent<InteractableObject>().Zoom();
+
+                if (hit.collider.name == "CartelloneInterno")
+                    hit.collider.GetComponentInParent<InteractableObject>().Zoom(true);
+                else if (hit.collider.name == "ElicotteroMesh")
+                    hit.collider.GetComponentInParent<EnableRenderer>().AbleRenderer(true);
+                else if (hit.collider.name == "CosoGiallo")
+                    hit.collider.GetComponentInParent<EnableRenderer>().AbleRenderer(true);
 
                 Gradient temporalGradient = new Gradient();
                 GradientColorKey[] colorKey = new GradientColorKey[2];
@@ -62,6 +75,10 @@ public class PointerLeft : MonoBehaviour
         }
         else
         {
+            foreach (EnableRenderer renderer in renderers)
+                renderer.AbleRenderer(false);
+
+            obj.Zoom(false);
             line.colorGradient = initialGradient;
             isHitting = false;
         }

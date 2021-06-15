@@ -13,9 +13,4 @@ public class Divano : InteractableObject
     {
         base.FixedUpdate();
     }
-
-    public override void Zoom()
-    {
-        base.Zoom();
-    }
 }
